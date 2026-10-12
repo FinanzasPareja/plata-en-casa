@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plata en Casa</title>
+<meta name="apple-mobile-web-app-title" content="Plata en Casa">
+<meta name="application-name" content="Plata en Casa">
+<meta name="theme-color" content="#0E7A5C">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<script>
+// Enlace de la app (Google Apps Script)
+var APP = "https://script.google.com/macros/s/AKfycbzXdxKe2N9bmNYkgxVxmeiv8MaaeyF9KoiH9J8k9w05C-pjydDbaSP1u7gnG6QzN-slUQ/exec";
+// Si se abre desde el ícono (?app=1) entra directo a la app.
+// En la primera visita se queda aquí para que puedan agregar el ícono.
+(function(){
+  var desdeIcono = /[?&]app=1/.test(location.search);
+  var instalando = false;
+  try { instalando = sessionStorage.getItem("pc-instalando") === "1"; } catch(e) {}
+  if (desdeIcono && !instalando) { location.replace(APP); return; }
+  try { sessionStorage.setItem("pc-instalando","1"); } catch(e) {}
+  if (!desdeIcono) { try { history.replaceState(null, "", location.pathname + "?app=1"); } catch(e) {} }
+})();
+</script>
+<style>
+:root{--bg:#F3F6F4;--fg:#15221D;--muted:#5B6B64;--accent:#0E7A5C;--card:#fff;--line:#D5DED9}
+@media (prefers-color-scheme:dark){:root{--bg:#0E1513;--fg:#E6EEEA;--muted:#93A59D;--accent:#3CC199;--card:#16201D;--line:#2B3A35}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 -apple-system,"Segoe UI",system-ui,sans-serif;padding:max(24px,env(safe-area-inset-top)) 18px 32px}
+.w{max-width:440px;margin:0 auto;display:grid;gap:18px}
+.top{display:flex;gap:14px;align-items:center}
+.top img{width:64px;height:64px;border-radius:15px}
+h1{margin:0;font-size:24px}
+.top p{margin:0;color:var(--muted);font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+ol{margin:0;padding-left:22px;display:grid;gap:10px}
+.btn{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;padding:14px;border-radius:13px}
+.note{font-size:13px;color:var(--muted)}
+.share{display:inline-block;width:18px;height:18px;vertical-align:-3px}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="top"><img src="apple-touch-icon.png" alt=""><div><h1>Plata en Casa</h1><p>Finanzas del hogar · Cindy &amp; Jesús</p></div></div>
+  <div class="card">
+    <b>Instálala en 3 toques</b>
+    <ol style="margin-top:10px">
+      <li>Toca <b>Compartir</b> <svg class="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> abajo en Safari.</li>
+      <li>Escoge <b>Agregar a pantalla de inicio</b>.</li>
+      <li>Toca <b>Agregar</b>. Listo: queda el ícono verde.</li>
+    </ol>
+  </div>
+  <a class="btn" id="go" href="#">Abrir la app ahora</a>
+  <p class="note">Ábrela en <b>Safari</b> (no dentro de WhatsApp) y con tu cuenta de Google iniciada. La primera vez Google te pide permiso: dale <b>Permitir</b>.</p>
+</div>
+<script>document.getElementById("go").href = APP;</script>
+</body>
+</html>
